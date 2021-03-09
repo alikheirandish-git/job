@@ -1,0 +1,26 @@
+job_develop:
+  only:
+    - develop
+  script:
+    - "cd /home/gylloo/api-gateway/server"
+    - "git checkout develop"
+    - "git pull https://kheirandish:88200512@git.mobisoft.app/scaleup/gylloo-backend/api-gateway.git develop"
+    - "docker-compose up --build -d"
+    - "exit"
+
+  tags:
+    - gylloo-api-gateway
+
+
+job_master:
+  only:
+    - master
+  script:
+    - "cd /home/gylloo/api-gateway/server"
+    - "ls"
+    - "pwd"
+    - "exit"
+
+  tags:
+    - gylloo-api-gateway
+
