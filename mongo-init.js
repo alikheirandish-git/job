@@ -1,10 +1,10 @@
 db.createUser({
-  user: 'gyl_db',
+  user: 'user',
   pwd: 'password',
   roles: [
     {
       role: 'readWrite',
-      db: 'gylloo'
+      db: 'db_name'
     }
   ]
 });
