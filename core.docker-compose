@@ -1,0 +1,33 @@
+version: "3.7"
+services:
+  gylloo-mongo-db:
+    image: mongo:latest
+    container_name: gylloo-mongo-db
+    restart: always
+    volumes:
+      - mongo-db-volume:/data/db
+      - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js
+    networks:
+      - gylloo-network
+    env_file:
+      - .env
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${DB_USER}
+      MONGO_INITDB_ROOT_PASSWORD: ${DB_PASS}
+      MONGO_INITDB_DATABASE: ${DB_NAME}
+
+  gylloo-redis:
+    image: "redis:latest"
+    container_name: gylloo-redis
+    restart: always
+    command: redis-server --requirepass ${REDIS_PASS}
+    networks:
+      - gylloo-network
+
+networks:
+  gylloo-network:
+    external:
+      name: gylloo-network
+
+volumes:
+  mongo-db-volume:
