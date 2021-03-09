@@ -1,0 +1,27 @@
+version: "3.7"
+
+services:
+  api-gateway:
+    build:
+      context: ./
+      dockerfile: ./node.dockerfile
+    image: gylloo-api-gateway
+    container_name: gylloo-api-gateway
+    restart: unless-stopped
+    working_dir: /usr/src
+    ports:
+      - ${SERVER_PORT}:${SERVER_PORT}
+    volumes:
+      - api-gateway-log-volume:/usr/src/services
+    networks:
+      - gylloo-network
+    stdin_open: true
+    tty: true
+
+networks:
+  gylloo-network:
+    external:
+      name: gylloo-network
+
+volumes:
+  api-gateway-log-volume:
